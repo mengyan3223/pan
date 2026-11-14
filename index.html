@@ -450,37 +450,31 @@ body{
   box-shadow:inset 0 1px 0 rgba(255,255,255,.90),0 18px 36px -18px rgba(20,24,40,.5)!important;
 }
 
-/* ===== 底部文字：液态玻璃（快捷入口 + 底栏标签 + 侧栏提示）===== */
-.glass-dock{
-  display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:9px;
-  margin:26px auto 4px;padding:13px 15px;max-width:660px;border-radius:20px;
-  background:linear-gradient(180deg,rgba(255,255,255,.62) 0%,rgba(255,255,255,.34) 100%);
-  border:1px solid rgba(255,255,255,.62);
-  -webkit-backdrop-filter:blur(20px) saturate(180%);backdrop-filter:blur(20px) saturate(180%);
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.92),inset 0 -1px 0 rgba(255,255,255,.40),0 16px 34px -20px rgba(20,24,40,.45);
-}
-.glass-dock .dock-tip{width:100%;text-align:center;font-size:.66rem;letter-spacing:.14em;color:var(--ink3);margin-bottom:2px;font-weight:700}
-.glass-dock a{
-  display:inline-flex;align-items:center;gap:7px;padding:8px 15px;border-radius:999px;
-  font-size:.78rem;font-weight:700;color:var(--ink);text-decoration:none;letter-spacing:.02em;
-  background:linear-gradient(180deg,rgba(255,255,255,.86) 0%,rgba(255,255,255,.42) 100%);
-  border:1px solid rgba(255,255,255,.78);
-  -webkit-backdrop-filter:blur(14px) saturate(170%);backdrop-filter:blur(14px) saturate(170%);
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.96),inset 0 -1px 1px rgba(16,20,32,.06),0 10px 20px -14px rgba(20,24,40,.55);
-  transition:transform .24s var(--ease),box-shadow .24s var(--ease),background .24s var(--ease);
-}
-.glass-dock a i{width:7px;height:7px;border-radius:50%;flex:none;box-shadow:0 0 0 1px rgba(255,255,255,.7) inset}
-.glass-dock a:hover{transform:translateY(-2px);background:linear-gradient(180deg,rgba(255,255,255,.96) 0%,rgba(255,255,255,.58) 100%);box-shadow:inset 0 1px 0 rgba(255,255,255,.98),0 16px 26px -14px rgba(20,24,40,.6)}
-.glass-dock a:active{transform:translateY(0) scale(.98)}
+/* ===== 底部文字：液态玻璃（底栏标签 + 侧栏提示）===== */
 
-/* 底部导航每个标签单独做成玻璃胶囊 */
-.mobbar button{
+/* 底部导航每个标签单独做成玻璃胶囊（前 5 个为云盘快捷入口，最后一个仍是设置） */
+.mobbar button,.mobbar .mob-link{
+  flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;
   margin:5px 3px!important;padding:8px 0 7px!important;border-radius:15px!important;
+  min-height:54px;font-family:inherit;font-size:.66rem;font-weight:700;line-height:1;
+  color:var(--ink2);text-decoration:none;cursor:pointer;
   background:linear-gradient(180deg,rgba(255,255,255,.58) 0%,rgba(255,255,255,.24) 100%)!important;
   border:1px solid rgba(255,255,255,.62)!important;
   -webkit-backdrop-filter:blur(12px) saturate(170%);backdrop-filter:blur(12px) saturate(170%);
   box-shadow:inset 0 1px 0 rgba(255,255,255,.92),0 6px 14px -12px rgba(20,24,40,.5);
+  transition:transform .24s var(--ease),box-shadow .24s var(--ease),background .24s var(--ease);
 }
+.mobbar .mob-link i.mdot{
+  width:20px;height:20px;border-radius:50%;display:block;flex:none;font-style:normal;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.75),0 4px 9px -4px rgba(20,24,40,.55);
+}
+.mobbar button svg{width:20px;height:20px}
+.mobbar .mob-link:hover{
+  transform:translateY(-2px);
+  background:linear-gradient(180deg,rgba(255,255,255,.92) 0%,rgba(255,255,255,.50) 100%)!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.98),0 12px 20px -14px rgba(20,24,40,.6);
+}
+.mobbar .mob-link:active{transform:translateY(0) scale(.97)}
 .mobbar button.active{
   background:linear-gradient(180deg,rgba(91,91,214,.20) 0%,rgba(91,91,214,.06) 100%)!important;
   border-color:rgba(91,91,214,.34)!important;
@@ -498,7 +492,7 @@ body{
 
 /* --- 无 backdrop-filter 时的兜底 --- */
 @supports not ((backdrop-filter:blur(4px)) or (-webkit-backdrop-filter:blur(4px))){
-  .card,.quick-bar,.sidebar,.seg,.ghost-btn,.icon-btn,.glass-dock,.glass-dock a{background:rgba(255,255,255,.92)!important}
+  .card,.quick-bar,.sidebar,.seg,.ghost-btn,.icon-btn,.mobbar,.mobbar .mob-link{background:rgba(255,255,255,.92)!important}
 }
 </style>
 </head>
@@ -920,33 +914,15 @@ body{
         </p>
       </div>
     </section>
-    <div class="glass-dock" id="quickDock">
-      <div class="dock-tip">快捷入口</div>
-      <a href="https://pan.xunlei.com/" target="_blank" rel="noopener"><i style="background:#1E90FF"></i>迅雷</a>
-      <a href="https://drive.uc.cn/" target="_blank" rel="noopener"><i style="background:#FF7A00"></i>UC</a>
-      <a href="https://pan.baidu.com/" target="_blank" rel="noopener"><i style="background:#2932E1"></i>百度</a>
-      <a href="https://pan.quark.cn/" target="_blank" rel="noopener"><i style="background:#2A6EF5"></i>夸克</a>
-      <a href="https://yun.139.com/" target="_blank" rel="noopener"><i style="background:#0BA5EC"></i>移动</a>
-    </div>
   </main>
 </div>
 
 <nav class="mobbar">
-  <button data-action="nav" data-view="home">
-    <svg viewBox="0 0 24 24" fill="none"><path d="M4 13h6V4H4v9Zm0 7h6v-4H4v4Zm10 0h6V11h-6v9Zm0-16v4h6V4h-6Z" fill="currentColor"/></svg>概览
-  </button>
-  <button data-action="nav" data-view="projects">
-    <svg viewBox="0 0 24 24" fill="none"><path d="M3 6.5A2 2 0 0 1 5 4.5h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-11Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>项目
-  </button>
-  <button data-action="nav" data-view="ledger">
-    <svg viewBox="0 0 24 24" fill="none"><path d="M6 3h12v18l-3-2-3 2-3-2-3 2V3Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M9 8h6M9 12h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>收支
-  </button>
-  <button data-action="nav" data-view="todos">
-    <svg viewBox="0 0 24 24" fill="none"><path d="M4 6.5A2.5 2.5 0 0 1 6.5 4h11A2.5 2.5 0 0 1 20 6.5v11a2.5 2.5 0 0 1-2.5 2.5h-11A2.5 2.5 0 0 1 4 17.5v-11Z" stroke="currentColor" stroke-width="2"/><path d="M8 10.5l2.2 2.2L15.5 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>待办
-  </button>
-  <button data-action="nav" data-view="report">
-    <svg viewBox="0 0 24 24" fill="none"><path d="M4 19V5m0 14h16M8.5 15V9m4 6V6.5m4 8.5v-4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>报表
-  </button>
+  <a class="mob-link" href="https://pan.xunlei.com/" target="_blank" rel="noopener"><i class="mdot" style="background:#1E90FF"></i>迅雷</a>
+  <a class="mob-link" href="https://drive.uc.cn/" target="_blank" rel="noopener"><i class="mdot" style="background:#FF7A00"></i>UC</a>
+  <a class="mob-link" href="https://pan.baidu.com/" target="_blank" rel="noopener"><i class="mdot" style="background:#2932E1"></i>百度</a>
+  <a class="mob-link" href="https://pan.quark.cn/" target="_blank" rel="noopener"><i class="mdot" style="background:#2A6EF5"></i>夸克</a>
+  <a class="mob-link" href="https://yun.139.com/" target="_blank" rel="noopener"><i class="mdot" style="background:#0BA5EC"></i>移动</a>
   <button data-action="nav" data-view="settings">
     <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="3.2" stroke="currentColor" stroke-width="2"/><path d="M19.2 12c0-.8-.1-1.6-.4-2.3l2-1.6-2-3.4-2.4 1a7 7 0 0 0-2-1.1L13.8 2h-3.6l-.6 2.6a7 7 0 0 0-2 1.1l-2.4-1-2 3.4 2 1.6c-.3.7-.4 1.5-.4 2.3s.1 1.6.4 2.3l-2 1.6 2 3.4 2.4-1a7 7 0 0 0 2 1.1l.6 2.6h3.6l.6-2.6a7 7 0 0 0 2-1.1l2.4 1 2-3.4-2-1.6c.3-.7.4-1.5.4-2.3Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>设置
   </button>
