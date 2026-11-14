@@ -450,9 +450,55 @@ body{
   box-shadow:inset 0 1px 0 rgba(255,255,255,.90),0 18px 36px -18px rgba(20,24,40,.5)!important;
 }
 
+/* ===== 底部文字：液态玻璃（快捷入口 + 底栏标签 + 侧栏提示）===== */
+.glass-dock{
+  display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:9px;
+  margin:26px auto 4px;padding:13px 15px;max-width:660px;border-radius:20px;
+  background:linear-gradient(180deg,rgba(255,255,255,.62) 0%,rgba(255,255,255,.34) 100%);
+  border:1px solid rgba(255,255,255,.62);
+  -webkit-backdrop-filter:blur(20px) saturate(180%);backdrop-filter:blur(20px) saturate(180%);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.92),inset 0 -1px 0 rgba(255,255,255,.40),0 16px 34px -20px rgba(20,24,40,.45);
+}
+.glass-dock .dock-tip{width:100%;text-align:center;font-size:.66rem;letter-spacing:.14em;color:var(--ink3);margin-bottom:2px;font-weight:700}
+.glass-dock a{
+  display:inline-flex;align-items:center;gap:7px;padding:8px 15px;border-radius:999px;
+  font-size:.78rem;font-weight:700;color:var(--ink);text-decoration:none;letter-spacing:.02em;
+  background:linear-gradient(180deg,rgba(255,255,255,.86) 0%,rgba(255,255,255,.42) 100%);
+  border:1px solid rgba(255,255,255,.78);
+  -webkit-backdrop-filter:blur(14px) saturate(170%);backdrop-filter:blur(14px) saturate(170%);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.96),inset 0 -1px 1px rgba(16,20,32,.06),0 10px 20px -14px rgba(20,24,40,.55);
+  transition:transform .24s var(--ease),box-shadow .24s var(--ease),background .24s var(--ease);
+}
+.glass-dock a i{width:7px;height:7px;border-radius:50%;flex:none;box-shadow:0 0 0 1px rgba(255,255,255,.7) inset}
+.glass-dock a:hover{transform:translateY(-2px);background:linear-gradient(180deg,rgba(255,255,255,.96) 0%,rgba(255,255,255,.58) 100%);box-shadow:inset 0 1px 0 rgba(255,255,255,.98),0 16px 26px -14px rgba(20,24,40,.6)}
+.glass-dock a:active{transform:translateY(0) scale(.98)}
+
+/* 底部导航每个标签单独做成玻璃胶囊 */
+.mobbar button{
+  margin:5px 3px!important;padding:8px 0 7px!important;border-radius:15px!important;
+  background:linear-gradient(180deg,rgba(255,255,255,.58) 0%,rgba(255,255,255,.24) 100%)!important;
+  border:1px solid rgba(255,255,255,.62)!important;
+  -webkit-backdrop-filter:blur(12px) saturate(170%);backdrop-filter:blur(12px) saturate(170%);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.92),0 6px 14px -12px rgba(20,24,40,.5);
+}
+.mobbar button.active{
+  background:linear-gradient(180deg,rgba(91,91,214,.20) 0%,rgba(91,91,214,.06) 100%)!important;
+  border-color:rgba(91,91,214,.34)!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.92),0 8px 16px -12px rgba(91,91,214,.6);
+}
+
+/* 侧栏底部那行小提示 */
+.side-foot{
+  margin:8px 8px 10px!important;padding:9px 12px!important;border-top:none!important;
+  border-radius:14px;border:1px solid rgba(255,255,255,.62)!important;
+  background:linear-gradient(180deg,rgba(255,255,255,.60) 0%,rgba(255,255,255,.28) 100%)!important;
+  -webkit-backdrop-filter:blur(14px) saturate(170%);backdrop-filter:blur(14px) saturate(170%);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.92);
+}
+
 /* --- 无 backdrop-filter 时的兜底 --- */
 @supports not ((backdrop-filter:blur(4px)) or (-webkit-backdrop-filter:blur(4px))){
-  .card,.quick-bar,.sidebar,.seg,.ghost-btn,.icon-btn{background:rgba(255,255,255,.92)!important}
+  .card,.quick-bar,.sidebar,.seg,.ghost-btn,.icon-btn,.glass-dock,.glass-dock a{background:rgba(255,255,255,.92)!important}
 }
 </style>
 </head>
@@ -874,6 +920,14 @@ body{
         </p>
       </div>
     </section>
+    <div class="glass-dock" id="quickDock">
+      <div class="dock-tip">快捷入口</div>
+      <a href="https://pan.xunlei.com/" target="_blank" rel="noopener"><i style="background:#1E90FF"></i>迅雷</a>
+      <a href="https://drive.uc.cn/" target="_blank" rel="noopener"><i style="background:#FF7A00"></i>UC</a>
+      <a href="https://pan.baidu.com/" target="_blank" rel="noopener"><i style="background:#2932E1"></i>百度</a>
+      <a href="https://pan.quark.cn/" target="_blank" rel="noopener"><i style="background:#2A6EF5"></i>夸克</a>
+      <a href="https://yun.139.com/" target="_blank" rel="noopener"><i style="background:#0BA5EC"></i>移动</a>
+    </div>
   </main>
 </div>
 
